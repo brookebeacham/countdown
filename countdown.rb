@@ -97,3 +97,6 @@ i = 25-Time.now.day
 
 nbrs = DigitDisplay.new(ws, 20, red)
 nbrs.show(i)
+sleep 5
+ws.show
+ws.show
