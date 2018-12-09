@@ -13,6 +13,7 @@ class DigitDisplay
 
   ones_zero = [26,27,28,21,19,14,16,9,7,2,3,4]
   ones_one = [28,19,16,7,4]
+  ones_solo = [27,20,15,8,3]
   ones_two = [26,27,28,19,16,15,14,9,2,3,4]
   ones_three = [26,27,28,19,16,15,14,7,4,3,2]
   ones_four = [26,21,14,15,16,28,19,7,4]
@@ -24,7 +25,7 @@ class DigitDisplay
 
   VALUES = {
      0 => tens_zero + ones_zero,
-     1 => ones_one,
+     1 => ones_solo,
      2 => ones_two,
      3 => ones_three,
      4 => ones_four,
@@ -92,10 +93,8 @@ ws[(0...n)] = black
 ws.show
 
 # days til xmas
-i = 25-Time.now.day
+#i = 25-Time.now.day
+i = 1
 
 nbrs = DigitDisplay.new(ws, 20, red)
 nbrs.show(i)
-ws.show
-
-binding.pry
