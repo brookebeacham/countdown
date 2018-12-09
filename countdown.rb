@@ -11,16 +11,16 @@ class DigitDisplay
   tens_one = [25,22,13,10,1]
   tens_two = [24,25,26,21,14,13,12,11,0,1,2]
 
-  ones_zero = [27,28,29,20,18,15,17,8,6,3,4,5]
+  ones_zero = [26,27,28,21,19,14,16,9,7,2,3,4]
   ones_one = [28,19,16,7,4]
-  ones_two = [27,28,29,18,17,16,15,8,3,4,5]
-  ones_three = [27,28,29,18,17,16,15,6,3,4,5]
-  ones_four = [27,20,15,16,17,29,18,6,5]
-  ones_five = [27,28,29,20,15,16,17,6,5,4,3]
-  ones_six = [27,28,29,20,15,16,17,8,6,3,4,5]
-  ones_seven = [27,28,29,18,17,6,5]
-  ones_eight = [27,28,29,20,18,15,16,17,8,6,3,4,5]
-  ones_nine = [27,28,29,20,18,15,16,17,6,5]
+  ones_two = [26,27,28,19,16,15,14,9,2,3,4]
+  ones_three = [26,27,28,19,16,15,14,7,4,3,2]
+  ones_four = [26,21,14,15,16,28,19,7,4]
+  ones_five = [26,27,28,21,14,15,16,7,4,3,2]
+  ones_six = [26,27,28,21,14,15,16,9,7,2,3,4]
+  ones_seven = [26,27,28,19,16,7,4]
+  ones_eight = [26,27,28,21,19,14,15,16,9,7,2,3,4]
+  ones_nine = [26,27,28,21,19,14,15,16,7,4]
 
   VALUES = {
      0 => tens_zero + ones_zero,
@@ -91,10 +91,11 @@ blue  = Ws2812::Color.new(0, 0, 0xff)
 ws[(0...n)] = black
 ws.show
 
+# days til xmas
+i = 25-Time.now.day
+
 nbrs = DigitDisplay.new(ws, 20, red)
-25.downto(0) do |i|
-  nbrs.show(i)
-  sleep 10
-end
+nbrs.show(i)
+ws.show
 
 binding.pry
