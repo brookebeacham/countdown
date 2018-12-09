@@ -93,8 +93,7 @@ ws[(0...n)] = black
 ws.show
 
 # days til xmas
-#i = 25-Time.now.day
-i = 1
+i = 25-Time.now.day
 
 nbrs = DigitDisplay.new(ws, 20, red)
 nbrs.show(i)
