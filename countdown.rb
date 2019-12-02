@@ -16,7 +16,8 @@ class DigitDisplay
   ones_solo = [27,20,15,8,3]
   ones_two = [26,27,28,19,16,15,14,9,2,3,4]
   ones_three = [26,27,28,19,16,15,14,7,4,3,2]
-  ones_four = [26,21,14,15,16,28,19,7,4]
+  ones_four_solo = [26,21,14,15,16,28,19,7,4]
+  ones_four = [27,20,15,16,29,18,17,6,5]
   ones_five = [26,27,28,21,14,15,16,7,4,3,2]
   ones_six = [26,27,28,21,14,15,16,9,7,2,3,4]
   ones_seven = [26,27,28,19,16,7,4]
@@ -28,7 +29,7 @@ class DigitDisplay
      1 => ones_solo,
      2 => ones_two,
      3 => ones_three,
-     4 => ones_four,
+     4 => ones_four_solo,
      5 => ones_five,
      6 => ones_six,
      7 => ones_seven,
