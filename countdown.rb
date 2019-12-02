@@ -7,64 +7,68 @@ class DigitDisplay
 
   NUMBER_OF_LEDS = 30
 
-  tens_zero = [24,25,26,23,21,12,13,14,11,9,0,1,2]
-  tens_one = [25,22,13,10,1]
-  tens_two = [24,25,26,21,14,13,12,11,0,1,2]
+  TENS_ZERO = [24,25,26,23,21,12,13,14,11,9,0,1,2]
+  TENS_ONE = [25,22,13,10,1]
+  TENS_TWO = [24,25,26,21,14,13,12,11,0,1,2]
 
-  ones_zero = [26,27,28,21,19,14,16,9,7,2,3,4]
-  ones_one = [28,19,16,7,4]
-  ones_solo = [27,20,15,8,3]
-  ones_two = [26,27,28,19,16,15,14,9,2,3,4]
-  ones_three = [26,27,28,19,16,15,14,7,4,3,2]
-  ones_four = [26,21,14,15,16,28,19,7,4]
-  ones_five = [26,27,28,21,14,15,16,7,4,3,2]
-  ones_six = [26,27,28,21,14,15,16,9,7,2,3,4]
-  ones_seven = [26,27,28,19,16,7,4]
-  ones_eight = [26,27,28,21,19,14,15,16,9,7,2,3,4]
-  ones_nine = [26,27,28,21,19,14,15,16,7,4]
+  ONES_ZERO = [27,28,29,20,18,15,17,8,6,3,4,5]
+  ONES_ZERO_SOLO = [26,27,28,21,19,14,16,9,7,2,3,4]
+  ONES_ONE = [28,19,16,7,4]
+  ONES_SOLO = [27,20,15,8,3]
+  ONES_TWO = [27,28,29,18,17,16,15,8,3,4,5]
+  ONES_TWO_SOLO = [26,27,28,19,16,15,14,9,2,3,4]
+  ONES_THREE = [27,28,29,18,17,16,15,6,5,4,3]
+  ONES_THREE_SOLO = [26,27,28,19,16,15,14,7,4,3,2]
+  ONES_FOUR_SOLO = [26,21,14,15,16,28,19,7,4]
+  ONES_FOUR = [27,20,15,16,29,18,17,6,5]
+  ONES_FIVE = [26,27,28,21,14,15,16,7,4,3,2]
+  ONES_SIX = [26,27,28,21,14,15,16,9,7,2,3,4]
+  ONES_SEVEN = [26,27,28,19,16,7,4]
+  ONES_EIGHT = [26,27,28,21,19,14,15,16,9,7,2,3,4]
+  ONES_NINE = [26,27,28,21,19,14,15,16,7,4]
 
   VALUES = {
-     0 => tens_zero + ones_zero,
-     1 => ones_solo,
-     2 => ones_two,
-     3 => ones_three,
-     4 => ones_four,
-     5 => ones_five,
-     6 => ones_six,
-     7 => ones_seven,
-     8 => ones_eight,
-     9 => ones_nine,
-    10 => tens_one + ones_zero,
-    11 => tens_one + ones_one,
-    12 => tens_one + ones_two,
-    13 => tens_one + ones_three,
-    14 => tens_one + ones_four,
-    15 => tens_one + ones_five,
-    16 => tens_one + ones_six,
-    17 => tens_one + ones_seven,
-    18 => tens_one + ones_eight,
-    19 => tens_one + ones_nine,
-    20 => tens_two + ones_zero,
-    21 => tens_two + ones_one,
-    22 => tens_two + ones_two,
-    23 => tens_two + ones_three,
-    24 => tens_two + ones_four,
-    25 => tens_two + ones_five
+     0 => ONES_ZERO_SOLO,
+     1 => ONES_SOLO,
+     2 => ONES_TWO_SOLO,
+     3 => ONES_THREE_SOLO,
+     4 => ONES_FOUR_SOLO,
+     5 => ONES_FIVE,
+     6 => ONES_SIX,
+     7 => ONES_SEVEN,
+     8 => ONES_EIGHT,
+     9 => ONES_NINE,
+    10 => TENS_ONE + ONES_ZERO,
+    11 => TENS_ONE + ONES_ONE,
+    12 => TENS_ONE + ONES_TWO,
+    13 => TENS_ONE + ONES_THREE,
+    14 => TENS_ONE + ONES_FOUR,
+    15 => TENS_ONE + ONES_FIVE,
+    16 => TENS_ONE + ONES_SIX,
+    17 => TENS_ONE + ONES_SEVEN,
+    18 => TENS_ONE + ONES_EIGHT,
+    19 => TENS_ONE + ONES_NINE,
+    20 => TENS_TWO + ONES_ZERO,
+    21 => TENS_TWO + ONES_ONE,
+    22 => TENS_TWO + ONES_TWO,
+    23 => TENS_TWO + ONES_THREE,
+    24 => TENS_TWO + ONES_FOUR,
+    25 => TENS_TWO + ONES_FIVE
   }
 
-  def initialize(ws, offset, on_color, off_color = nil)
+  def initialize(ws, offset, tens_on_color, ones_on_color, off_color = nil)
 		off_color ||= Ws2812::Color.new(0, 0, 0)
-		@ws, @offset, @on_color, @off_color = ws, offset, on_color, off_color
+		@ws, @offset, @tens_on_color, @ones_on_color, @off_color = ws, offset, tens_on_color, ones_on_color, off_color
 	end
 
 	attr_reader :ws
-	attr_accessor :offset, :on_color, :off_color
+	attr_accessor :offset, :tens_on_color, :ones_on_color, :off_color
 
   def show (value)
     raise ArgumentError, "invalid value" unless VALUES[value]
     wipe
     0.upto(NUMBER_OF_LEDS-1) do |i|
-      ws[i+offset] = on_color if VALUES[value].include?(i)
+      ws[i+offset] = choose_on_color(value,i) if VALUES[value].include?(i)
     end
     ws.show
   end
@@ -74,6 +78,17 @@ class DigitDisplay
       ws[i+offset] = off_color
     end
     ws.show
+  end
+
+  def choose_on_color(value, led)
+    if value >= 20
+      selected_color = TENS_TWO.include?(led) ? tens_on_color : ones_on_color
+    elsif value >= 10
+      selected_color = TENS_ONE.include?(led) ? tens_on_color : ones_on_color
+    else
+      selected_color = ones_on_color
+    end
+    selected_color
   end
 
 end
@@ -95,7 +110,7 @@ ws.show
 # days til xmas
 i = 25-Time.now.day
 
-nbrs = DigitDisplay.new(ws, 20, red)
+nbrs = DigitDisplay.new(ws, 20, green, red)
 nbrs.show(i)
 sleep 5
 ws.show
