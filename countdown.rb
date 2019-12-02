@@ -80,7 +80,7 @@ class DigitDisplay
   def choose_on_color(value, led)
     if value >= 20
       selected_color = tens_two.include(led) ? tens_on_color : ones_on_color
-    else if value >= 10
+    elsif value >= 10
       selected_color = tens_one.include(led) ? tens_on_color : ones_on_color
     else
       selected_color = ones_on_color
