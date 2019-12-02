@@ -53,9 +53,9 @@ class DigitDisplay
     25 => tens_two + ones_five
   }
 
-  def initialize(ws, offset, on_color, off_color = nil)
+  def initialize(ws, offset, tens_on_color, ones_on_color, off_color = nil)
 		off_color ||= Ws2812::Color.new(0, 0, 0)
-		@ws, @offset, @on_color, @off_color = ws, offset, on_color, off_color
+		@ws, @offset, @tens_on_color, @ones_on_color, @off_color = ws, offset, tens_on_color, ones_on_color, off_color
 	end
 
 	attr_reader :ws
@@ -65,7 +65,7 @@ class DigitDisplay
     raise ArgumentError, "invalid value" unless VALUES[value]
     wipe
     0.upto(NUMBER_OF_LEDS-1) do |i|
-      ws[i+offset] = on_color if VALUES[value].include?(i)
+      ws[i+offset] = choose_on_color(value,i) if VALUES[value].include?(i)
     end
     ws.show
   end
@@ -75,6 +75,17 @@ class DigitDisplay
       ws[i+offset] = off_color
     end
     ws.show
+  end
+
+  def choose_on_color(value, led)
+    if value >= 20
+      selected_color = tens_two.include(led) ? tens_on_color : ones_on_color
+    else if value >= 10
+      selected_color = tens_one.include(led) ? tens_on_color : ones_on_color
+    else
+      selected_color = ones_on_color
+    end
+    selected_color
   end
 
 end
@@ -96,7 +107,7 @@ ws.show
 # days til xmas
 i = 25-Time.now.day
 
-nbrs = DigitDisplay.new(ws, 20, red)
+nbrs = DigitDisplay.new(ws, 20, green, red)
 nbrs.show(i)
 sleep 5
 ws.show
