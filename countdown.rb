@@ -11,7 +11,8 @@ class DigitDisplay
   TENS_ONE = [25,22,13,10,1]
   TENS_TWO = [24,25,26,21,14,13,12,11,0,1,2]
 
-  ONES_ZERO = [26,27,28,21,19,14,16,9,7,2,3,4]
+  ONES_ZERO = [27,28,29,20,18,15,17,8,6,3,4,5]
+  ONES_ZERO_SOLO = [26,27,28,21,19,14,16,9,7,2,3,4]
   ONES_ONE = [28,19,16,7,4]
   ONES_SOLO = [27,20,15,8,3]
   ONES_TWO = [27,28,29,18,17,16,15,8,3,4,5]
@@ -27,7 +28,7 @@ class DigitDisplay
   ONES_NINE = [26,27,28,21,19,14,15,16,7,4]
 
   VALUES = {
-     0 => TENS_ZERO + ONES_ZERO,
+     0 => ONES_ZERO_SOLO,
      1 => ONES_SOLO,
      2 => ONES_TWO_SOLO,
      3 => ONES_THREE_SOLO,
