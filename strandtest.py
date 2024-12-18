@@ -81,9 +81,15 @@ def theaterChaseRainbow(strip, wait_ms=50):
 # Main program logic follows:
 if __name__ == '__main__':
     # Process arguments
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Set the timeout value.')
     parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
+    parser.add_argument('--timeout', type=int, default=60*60*5, help='Timeout value in seconds')
     args = parser.parse_args()
+
+    # Use the parsed timeout value
+    timeout = args.timeout
+
+    print("Timeout is set to:", timeout)
 
     # Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
@@ -96,7 +102,6 @@ if __name__ == '__main__':
 
     try:
 
-	timeout = 60*60*5   # [seconds]
 	timeout_start = time.time()
 	while time.time() < timeout_start + timeout:
             print ('Color wipe animations.')
