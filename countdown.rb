@@ -107,6 +107,8 @@ blue  = Ws2812::Color.new(0, 0, 0xff)
 ws[(0...n)] = black
 ws.show
 
+ws.brightness = 100
+
 # days til xmas
 i = 25-Time.now.day
 
